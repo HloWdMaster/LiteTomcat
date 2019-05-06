@@ -46,7 +46,7 @@ public class HttpServer {
                 request.parse();
                 //创建响应对象
                 Response response = new Response(out);
-                response.setRequest();
+                response.setRequest(request);
                 response.sendStaticResource();
                 //关闭套接字
                 socket.close();
