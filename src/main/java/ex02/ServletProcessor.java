@@ -7,6 +7,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.net.URLStreamHandler;
@@ -25,7 +26,7 @@ public class ServletProcessor {
         URLStreamHandler streamHandler = null;
         File classPath = new File(Constans.WEB_ROOT);
         try {
-            String repository = new URL("file", null, classPath.getCanonicalPath() + File.separator).toString();
+            String repository = (new URL("file", null, classPath.getCanonicalPath() + File.separator)).toString();
             urls[0] = new URL(null, repository, streamHandler);
             loader = new URLClassLoader(urls);
         } catch (IOException e) {
@@ -40,9 +41,13 @@ public class ServletProcessor {
         Servlet servlet = null;
         try {
             servlet = (Servlet) myClass.newInstance();
-            servlet.service(request, response);
+            PrintWriter writer=response.getWriter();
+//            writer.print("HTTP/1.1 200 OK\r\n");
+//            writer.print("Content-Type: text/html\r\n");
+//            writer.print("\r\n");
+            servlet.service((ServletRequest) request, (ServletResponse) response);
         } catch (Exception e) {
-
+            System.out.println(e.getStackTrace());
         }
 
 

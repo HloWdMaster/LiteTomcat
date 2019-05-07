@@ -1,5 +1,7 @@
 package ex02;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -43,7 +45,7 @@ public class HttpServer1 {
                 Response response = new Response(output);
                 response.setRequest(request);
                 //判断请求是servlet还是静态资源
-                if (request.getUri().startsWith("/servlet/")) {
+                if (request.getUri()!=null && request.getUri().startsWith("/servlet/")) {
                     ServletProcessor processor = new ServletProcessor();
                     processor.process(request,response);
                 } else {
