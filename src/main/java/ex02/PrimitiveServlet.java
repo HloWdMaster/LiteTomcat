@@ -1,7 +1,5 @@
 package ex02;
 
-import ex01.Response;
-
 import javax.servlet.*;
 import java.io.IOException;
 import java.io.PrintWriter;
